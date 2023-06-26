@@ -1,6 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ola_mundo/app_controller.dart';
+import 'package:ola_mundo/componentes/build_app_bar.dart';
+import 'package:ola_mundo/componentes/favoritos.dart';
+import 'package:ola_mundo/componentes/search_box_app.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,99 +15,258 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  int count = 0;
   bool isDartTheme = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: builderAppBarAPP(),
       backgroundColor: const Color.fromARGB(255, 22, 26, 36),
-      drawer: Drawer(
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: Column(
           children: [
-            UserAccountsDrawerHeader(
-              currentAccountPicture: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Image.network(
-                      'https://yt3.ggpht.com/yti/AHyvSCAA5KFSGBbVXAJPQwTKU37dVaPlnJ4l4rCiGhPYWw=s88-c-k-c0x00ffffff-no-rj-mo')),
-              accountName: const Text('Thailson A'),
-              accountEmail: const Text('thailson@gmail.com'),
+            searchBoxApp(),
+            Expanded(
+              child: ListView(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 30, bottom: 20),
+                    child: Container(
+                      color: const Color.fromARGB(255, 67, 115, 240),
+                      child: const Text(
+                        'Favoritos',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w100,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  const Favoritos(),
+                ],
+              ),
             ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Inicio'),
-              subtitle: const Text('Tela de Inicio'),
-              onTap: () {
-                if (kDebugMode) {
-                  print('home');
-                }
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Logout'),
-              subtitle: const Text('Finalizar sessão'),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed('/');
-              },
-            ),
+            /*SizedBox(
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Container(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/bg_films/1.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/bg_films/2.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/bg_films/3.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/bg_films/4.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/bg_films/5.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/bg_films/6.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/bg_films/7.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/bg_films/8.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/bg_films/9.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/images/bg_films/10.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        width: 168,
+                        height: 247,
+                        color: Colors.blue,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image:
+                                    AssetImage('assets/images/bg_films/11.jpg'),
+                                fit: BoxFit.contain),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),*/
           ],
         ),
       ),
-      appBar: AppBar(
-        title: const Text(
-          'Fala Jhon Doe',
-          style: TextStyle(
-              fontFamily: 'Fill', fontWeight: FontWeight.w200, fontSize: 20),
-        ),
-        actions: const [],
-        backgroundColor: const Color.fromARGB(255, 22, 26, 36),
-        leading: Image.asset('assets/images/perfil.png'),
-      ),
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Contador: $count'),
-            const CustomSwitch(),
-            Container(
-              height: 10,
-            ),
-            Row(
+      extendBody: true,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: const Color.fromARGB(255, 22, 26, 36),
+        child: IconTheme(
+          data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.black,
+                IconButton(
+                  iconSize: 40,
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  },
+                  icon: const Icon(Icons.home_filled),
                 ),
-                Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.green,
+                IconButton(
+                  iconSize: 40,
+                  onPressed: () {},
+                  icon: const Icon(Icons.person_2_rounded),
                 ),
-                Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.red,
+                IconButton(
+                  iconSize: 40,
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/');
+                  },
+                  icon: const Icon(Icons.logout_rounded),
                 ),
               ],
-            )
-          ],
+            ),
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          setState(
-            () {
-              count++;
-            },
-          );
-        },
       ),
     );
   }
